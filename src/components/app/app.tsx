@@ -20,13 +20,21 @@ import {
   OrderInfo
 } from '@components';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useDispatch } from '../../services/store';
+import { fetchIngredients } from '../../services/slices/burger/ingredients/ingredientsSlice';
+import { useEffect } from 'react';
 
 const App = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClose = () => {
     navigate(-1);
   };
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
