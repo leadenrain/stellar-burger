@@ -1,4 +1,4 @@
-import { TConstructorIngredient, TIngredient } from '../../utils/types';
+import { TConstructorIngredient, TIngredient, TOrder } from '../../utils/types';
 
 export type TIngredientsState = {
   ingredients: Array<TIngredient>;
@@ -9,4 +9,12 @@ export type TIngredientsState = {
 export type TConstructorState = {
   bun: TConstructorIngredient | null;
   otherIngredients: Array<TConstructorIngredient>;
+};
+
+export type TFeedState = {
+  orders: Array<TOrder>;
+  total: number;
+  totalToday: number;
+  isFeedLoading: boolean;
+  feedLoadingError: string | null;
 };

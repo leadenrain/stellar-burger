@@ -11,14 +11,7 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-
-import {
-  AppHeader,
-  FeedInfo,
-  IngredientDetails,
-  Modal,
-  OrderInfo
-} from '@components';
+import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/burger/ingredients/ingredientsSlice';
@@ -47,7 +40,7 @@ const App = () => {
             path=':number'
             element={
               <Modal title={'Информация о заказе'} onClose={handleClose}>
-                <FeedInfo />
+                <OrderInfo />
               </Modal>
             }
           />
@@ -63,7 +56,7 @@ const App = () => {
             <Route
               path=':number'
               element={
-                <Modal title={'Список заказов'} onClose={handleClose}>
+                <Modal title={'Информация о заказе'} onClose={handleClose}>
                   <OrderInfo />
                 </Modal>
               }
