@@ -1,5 +1,4 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
-
 import { TConstructorState } from '../../types';
 import { TConstructorIngredient, TIngredient } from '../../../../utils/types';
 
@@ -54,8 +53,9 @@ export const constructorSlice = createSlice({
         ];
       }
     },
-    deleteBurger: (state) => {
-      state = initialState;
+    clearConstructor: (state) => {
+      state.bun = null;
+      state.otherIngredients = [];
     }
   },
   selectors: {
@@ -70,5 +70,6 @@ export const {
   addIngredient,
   deleteIngredient,
   moveUpIngredient,
-  moveDownIngredient
+  moveDownIngredient,
+  clearConstructor
 } = constructorSlice.actions;
