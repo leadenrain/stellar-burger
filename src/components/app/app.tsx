@@ -13,9 +13,11 @@ import '../../index.css';
 import styles from './app.module.css';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/burger/ingredients/ingredientsSlice';
-import { useEffect } from 'react';
+import { ProtectedRoute } from '../protected-route/protected-route';
+import { getUser } from '../../services/slices/auth/thunk';
 
 const App = () => {
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(getUser());
   }, [dispatch]);
 
   return (
@@ -45,19 +48,63 @@ const App = () => {
             }
           />
         </Route>
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route
+          path='/login'
+          element={
+            <ProtectedRoute>
+              <Login />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/register'
+          element={
+            <ProtectedRoute>
+              <Register />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/forgot-password'
+          element={
+            <ProtectedRoute>
+              <ForgotPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/reset-password'
+          element={
+            <ProtectedRoute onlyAuthorized>
+              <ResetPassword />
+            </ProtectedRoute>
+          }
+        />
         <Route path='/profile'>
-          <Route index element={<Profile />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute onlyAuthorized>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route path='orders'>
-            <Route index element={<ProfileOrders />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute onlyAuthorized>
+                  <ProfileOrders />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path=':number'
               element={
                 <Modal title={'Информация о заказе'} onClose={handleClose}>
-                  <OrderInfo />
+                  <ProtectedRoute onlyAuthorized>
+                    <OrderInfo />
+                  </ProtectedRoute>
                 </Modal>
               }
             />

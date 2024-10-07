@@ -1,6 +1,8 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
+import { selectIsAuthorized } from '../../services/slices/auth/userSlice';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from '../../services/store';
 import {
   getBun,
@@ -8,16 +10,23 @@ import {
 } from '../../services/slices/burger/constructor/constructorSlice';
 
 export const BurgerConstructor: FC = () => {
+  const navigate = useNavigate();
+
   const constructorItems = {
     bun: useSelector(getBun) || null,
     ingredients: useSelector(getOtherIngredients) || []
   };
+  const authorizedUser = useSelector(selectIsAuthorized);
 
   const orderRequest = false;
 
   const orderModalData = null;
 
   const onOrderClick = () => {
+    if (!authorizedUser) {
+      navigate('/login');
+    }
+
     if (!constructorItems.bun || orderRequest) return;
   };
   const closeOrderModal = () => {};
