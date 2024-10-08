@@ -15,15 +15,10 @@ import {
   clearOrder
 } from '../../services/slices/order/order/orderSlice';
 import { postOrder } from '../../services/slices/order/order/thunk';
-import { getUser } from '../../services/slices/auth/thunk';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
 
   const constructorItems = {
     bun: useSelector(getBun) || null,
@@ -49,6 +44,7 @@ export const BurgerConstructor: FC = () => {
   };
 
   const closeOrderModal = () => {
+    // ? по х не закрывается модалка с лоадером
     dispatch(clearConstructor());
     dispatch(clearOrder());
   };

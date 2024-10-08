@@ -14,7 +14,6 @@ const initialState: TUserState = {
     name: '',
     email: ''
   },
-  isAuthorized: false,
   isAuthLoading: false,
   authError: null
 };
@@ -25,7 +24,7 @@ const userSlice = createSlice({
   reducers: {},
   selectors: {
     selectUser: (state) => state.userData,
-    selectIsAuthorized: (state) => state.isAuthorized,
+    selectIsAuthorized: (state) => state.userData?.email,
     selectIsLoading: (state) => state.isAuthLoading
   },
   extraReducers: (builder) => {
@@ -49,7 +48,7 @@ const userSlice = createSlice({
       .addCase(logoutUser.pending, handlePending)
       .addCase(logoutUser.rejected, handleReject)
       .addCase(logoutUser.fulfilled, (state) => {
-        state.isAuthorized = false;
+        state.isAuthLoading = false;
         state.authError = null;
         state.userData = null;
       });

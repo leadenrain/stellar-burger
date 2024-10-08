@@ -37,7 +37,6 @@ export type TUserLogin = Omit<TRegisterData, 'name'>;
 
 export type TUserState = {
   userData: TUser | null;
-  isAuthorized: boolean;
   isAuthLoading: boolean;
   authError: string | null;
 };
