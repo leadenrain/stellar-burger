@@ -8,18 +8,18 @@ import { fetchFeed } from '../../services/slices/order/feed/thunk';
 export const Feed: FC = () => {
   const dispatch = useDispatch();
 
+  const orders = useSelector(selectOrders);
+
+  const handleGetFeeds = () => {
+    dispatch(fetchFeed());
+  };
+
   useEffect(() => {
     dispatch(fetchFeed());
   }, [dispatch]);
 
-  const orders = useSelector(selectOrders);
-
-  const handleFetFeeds = () => {
-    dispatch(fetchFeed());
-  };
-
   if (!orders.length) {
     return <Preloader />;
   }
-  return <FeedUI orders={orders} handleGetFeeds={handleFetFeeds} />;
+  return <FeedUI orders={orders} handleGetFeeds={handleGetFeeds} />;
 };
