@@ -1,8 +1,9 @@
 .content {
-  margin: 0 60px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-items: center;
   text-align: center;
   width: 520px;
 }
