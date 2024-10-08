@@ -12,6 +12,7 @@ import {
   registerUser,
   updateUser
 } from './auth/thunk';
+import { getOrder, getOrderList, postOrder } from './order/order/thunk';
 
 export type TIngredientsState = {
   ingredients: Array<TIngredient>;
@@ -54,4 +55,18 @@ export type TActionFullfilled = ReturnType<
   | typeof registerUser.fulfilled
   | typeof updateUser.fulfilled
   | typeof loginUser.fulfilled
+>;
+
+export type TOrderState = {
+  orderList: Array<TOrder>;
+  selectedOrder: TOrder | null;
+  newOrder: TOrder | null;
+  isOrderLoading: boolean;
+  orderError: string | null;
+};
+
+export type TOrderActionRejected = ReturnType<
+  | typeof getOrderList.rejected
+  | typeof getOrder.rejected
+  | typeof postOrder.rejected
 >;
