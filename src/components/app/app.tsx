@@ -27,7 +27,7 @@ const App = () => {
   const bg = location.state?.background;
 
   const handleClose = () => {
-    navigate(-1);
+    navigate(-1); // нужно ли прерывать загрузку ордера на сервер?
   };
 
   useEffect(() => {
