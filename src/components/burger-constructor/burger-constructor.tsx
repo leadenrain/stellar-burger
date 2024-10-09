@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { selectIsAuthorized } from '../../services/slices/auth/userSlice';
@@ -34,13 +34,13 @@ export const BurgerConstructor: FC = () => {
 
     if (!authorizedUser) {
       navigate('/login');
-    } else if (authorizedUser) {
-      const newOrder = [
-        constructorItems.bun._id,
-        ...constructorItems.ingredients.map((i) => i._id)
-      ];
-      dispatch(postOrder(newOrder));
     }
+
+    const newOrder = [
+      constructorItems.bun._id,
+      ...constructorItems.ingredients.map((i) => i._id)
+    ];
+    dispatch(postOrder(newOrder));
   };
 
   const closeOrderModal = () => {
