@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TIngredientsState } from '../../types';
 import { fetchIngredients } from './thunk';
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   ingredients: [],
   isIngredientsLoading: false,
   ingredientsLoadingError: null
