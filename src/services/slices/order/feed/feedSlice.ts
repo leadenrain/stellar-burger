@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TFeedState } from '../../types';
 import { fetchFeed } from './thunk';
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
