@@ -9,7 +9,7 @@ import {
 } from './thunk';
 import { handleFullfilled, handlePending, handleReject } from './handlers';
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   userData: {
     name: '',
     email: ''
