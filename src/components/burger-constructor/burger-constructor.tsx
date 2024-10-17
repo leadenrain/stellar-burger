@@ -34,13 +34,15 @@ export const BurgerConstructor: FC = () => {
 
     if (!authorizedUser) {
       navigate('/login');
-    }
+    } else {
+      const newOrder = [
+        constructorItems.bun._id,
+        constructorItems.bun._id,
+        ...constructorItems.ingredients.map((i) => i._id)
+      ];
 
-    const newOrder = [
-      constructorItems.bun._id,
-      ...constructorItems.ingredients.map((i) => i._id)
-    ];
-    dispatch(postOrder(newOrder));
+      dispatch(postOrder(newOrder));
+    }
   };
 
   const closeOrderModal = () => {
