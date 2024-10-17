@@ -36,7 +36,7 @@ export type TFeedState = {
 export type TUserLogin = Omit<TRegisterData, 'name'>;
 
 export type TUserState = {
-  userData: TUser | null;
+  userData: TUser | null | undefined;
   isAuthLoading: boolean;
   authError: string | null;
 };

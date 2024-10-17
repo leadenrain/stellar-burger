@@ -3,7 +3,7 @@ import { TOrderState } from '../../types';
 import { getOrder, getOrderList, postOrder } from './thunk';
 import { handlePending, handleReject } from './handlers';
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderList: [],
   selectedOrder: null,
   newOrder: null,

@@ -1,15 +1,12 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import {
   selectIsAuthorized,
-  selectIsLoading
+  selectIsLoading,
+  selectUser
 } from '../../services/slices/auth/userSlice';
 import { Preloader } from '../ui/preloader/preloader';
 import { useSelector } from '../../services/store';
-
-type ProtectedRouteProps = {
-  children: React.ReactElement;
-  onlyAuthorized?: boolean;
-};
+import { ProtectedRouteProps } from './type';
 
 export const ProtectedRoute = ({
   children,
@@ -17,9 +14,10 @@ export const ProtectedRoute = ({
 }: ProtectedRouteProps) => {
   const isAuthorized = useSelector(selectIsAuthorized);
   const isLoading = useSelector(selectIsLoading);
+  const user = useSelector(selectUser);
   const location = useLocation();
 
-  if (isLoading) {
+  if (user === undefined || isLoading) {
     return <Preloader />;
   }
 

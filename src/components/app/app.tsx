@@ -18,13 +18,15 @@ import { useDispatch } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/burger/ingredients/ingredientsSlice';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getUser } from '../../services/slices/auth/thunk';
+import { Title } from '../title/title';
+import { ModalWithParams } from '../modal-with-params/modal-with-params';
 
 const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const bg = location.state?.background;
+  const background = location.state?.background;
 
   const handleClose = () => {
     navigate(-1); // нужно ли прерывать загрузку ордера на сервер?
@@ -38,12 +40,19 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes location={bg || location}>
+      <Routes location={background || location}>
         <Route path='/'>
           <Route index element={<ConstructorPage />} />
           <Route path='feed'>
             <Route index element={<Feed />} />
-            <Route path=':number' element={<OrderInfo />} />
+            <Route
+              path=':number'
+              element={
+                <Title>
+                  <OrderInfo />
+                </Title>
+              }
+            />
           </Route>
           <Route
             path='login'
@@ -99,40 +108,39 @@ const App = () => {
                 path=':number'
                 element={
                   <ProtectedRoute onlyAuthorized>
-                    <OrderInfo />
+                    <Title>
+                      <OrderInfo />
+                    </Title>
                   </ProtectedRoute>
                 }
               />
             </Route>
           </Route>
-          <Route path='ingredients/:id' element={<IngredientDetails />} />
         </Route>
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Title content='Детали ингредиента'>
+              <IngredientDetails />
+            </Title>
+          }
+        />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
-      {bg && (
+      {background && (
         <Routes>
           <Route
             path='/feed/:number'
-            element={
-              <Modal title={'Информация о заказе'} onClose={handleClose}>
-                <OrderInfo />
-              </Modal>
-            }
+            element={<ModalWithParams onClose={handleClose} />}
           />
           <Route
             path='/profile/orders/:number'
-            element={
-              <Modal title={'Информация о заказе'} onClose={handleClose}>
-                <ProtectedRoute onlyAuthorized>
-                  <OrderInfo />
-                </ProtectedRoute>
-              </Modal>
-            }
+            element={<ModalWithParams onClose={handleClose} />}
           />
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title={'Ингредиент'} onClose={handleClose}>
+              <Modal title={'Детали ингредиента'} onClose={handleClose}>
                 <IngredientDetails />
               </Modal>
             }
