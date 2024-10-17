@@ -10,10 +10,7 @@ import {
 import { handleFullfilled, handlePending, handleReject } from './handlers';
 
 export const initialState: TUserState = {
-  userData: {
-    name: '',
-    email: ''
-  },
+  userData: undefined,
   isAuthLoading: false,
   authError: null
 };
