@@ -8,6 +8,7 @@ export const handlePending = (state: TUserState) => {
 export const handleReject = (state: TUserState, action: TActionRejected) => {
   state.isAuthLoading = false;
   state.authError = action.error.message || null;
+  state.userData = null;
 };
 
 export const handleFullfilled = (
