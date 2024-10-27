@@ -131,11 +131,19 @@ const App = () => {
         <Routes>
           <Route
             path='/feed/:number'
-            element={<ModalWithParams onClose={handleClose} />}
+            element={
+              <ModalWithParams onClose={handleClose}>
+                <OrderInfo />
+              </ModalWithParams>
+            }
           />
           <Route
             path='/profile/orders/:number'
-            element={<ModalWithParams onClose={handleClose} />}
+            element={
+              <ModalWithParams onClose={handleClose}>
+                <OrderInfo />
+              </ModalWithParams>
+            }
           />
           <Route
             path='/ingredients/:id'
