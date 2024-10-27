@@ -5,6 +5,9 @@ describe('Checking the functionality of the constructor-page', () => {
     );
 
     cy.visit('/');
+    cy.wait('@getIngredients');
+    cy.get(`[data-cy='Булки']`).should('have.length', 1);
+    cy.get(`[data-cy='Начинки']`).should('have.length', 1);
 
     cy.get(`[data-cy='Биокотлета из марсианской Магнолии']`).as('filling');
     cy.get(`[data-cy='Краторная булка N-200i']`).as('bun');
@@ -67,9 +70,14 @@ describe('Checking the functionality of the constructor-page', () => {
   describe('Checking the order process', () => {
     it('should create a new order', () => {
       cy.intercept('GET', 'api/auth/user', { fixture: 'user' });
-      cy.intercept('POST', 'api/orders', { fixture: 'order' });
+      cy.intercept('POST', 'api/orders', { fixture: 'order' }).as(
+        'createOrder'
+      );
       cy.setCookie('accessToken', 'test');
-      localStorage.setItem('refreshToken', 'test');
+      cy.window().then((window) => {
+        window.localStorage.setItem('refreshToken', 'test');
+      });
+
       cy.visit('/');
 
       cy.get('@noBun').contains('Выберите булки');
@@ -82,13 +90,14 @@ describe('Checking the functionality of the constructor-page', () => {
       cy.get(`[data-cy='buns']`).contains('Краторная булка N-200i');
       cy.get('@bun').find('.counter').contains('2');
       cy.get(`[data-cy='orderButton']`).click();
+
       cy.get('@modal').find('h2').contains('56525').should('exist');
       cy.get('@modal').find('button').click();
       cy.get('@modal').children().should('have.length', 0);
       cy.get('@noBun').contains('Выберите булки');
       cy.get('@fillings').contains('Выберите начинку');
       cy.clearCookie('accessToken');
-      localStorage.removeItem('refreshToken');
+      window.localStorage.removeItem('refreshToken');
     });
   });
 });

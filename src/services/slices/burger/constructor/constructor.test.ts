@@ -16,9 +16,6 @@ describe('Burger constructor reducer', () => {
       const action = addIngredient(ingredient);
       const newState = constructorReducer(initialState, action);
 
-      console.log(newState.otherIngredients[0]);
-      console.log(ingredient);
-
       expect(newState.otherIngredients[0]).toEqual(
         expect.objectContaining(ingredient)
       );
