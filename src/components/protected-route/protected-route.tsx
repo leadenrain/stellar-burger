@@ -28,8 +28,8 @@ export const ProtectedRoute = ({
   }
 
   if (!onlyAuthorized && isAuthorized) {
-    const from = location.state?.from || { pathname: '/' };
-    return <Navigate replace to={from} />;
+    const from = location.state?.from || '/';
+    return <Navigate to={from} replace />;
   }
 
   return children;
