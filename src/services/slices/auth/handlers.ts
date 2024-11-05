@@ -7,7 +7,7 @@ export const handlePending = (state: TUserState) => {
 
 export const handleReject = (state: TUserState, action: TActionRejected) => {
   state.isAuthLoading = false;
-  state.authError = action.error.message || null;
+  state.authError = action.error.message || 'Unknown error. Try again';
   state.userData = null;
 };
 

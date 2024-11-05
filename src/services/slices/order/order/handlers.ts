@@ -10,5 +10,5 @@ export const handleReject = (
   action: TOrderActionRejected
 ) => {
   state.isOrderLoading = false;
-  state.orderError = action.error.message || null;
+  state.orderError = action.error.message || 'Unknown error. Try again';
 };

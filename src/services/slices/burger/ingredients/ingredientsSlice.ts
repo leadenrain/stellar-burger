@@ -25,7 +25,8 @@ export const ingredientsSlice = createSlice({
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
         state.isIngredientsLoading = false;
-        state.ingredientsLoadingError = action.error.message ?? null;
+        state.ingredientsLoadingError =
+          action.error.message || 'Failed to fetch ingredients data';
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.isIngredientsLoading = false;
@@ -37,4 +38,3 @@ export const ingredientsSlice = createSlice({
 export const { selectIngredients, selectIsIngredientsLoading } =
   ingredientsSlice.selectors;
 export const ingredientsReducer = ingredientsSlice.reducer;
-export { fetchIngredients };

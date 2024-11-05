@@ -28,7 +28,8 @@ export const feedSlice = createSlice({
       })
       .addCase(fetchFeed.rejected, (state, action) => {
         state.isFeedLoading = false;
-        state.feedLoadingError = action.error.message ?? null;
+        state.feedLoadingError =
+          action.error.message || 'Failed to fetch feed data';
       })
       .addCase(fetchFeed.fulfilled, (state, action) => {
         state.isFeedLoading = false;
