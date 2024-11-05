@@ -21,7 +21,7 @@ export const OrderInfo: FC = () => {
     dispatch(getOrder(orderNumber));
   }, [dispatch]);
 
-  const ingredients: TIngredient[] = useSelector(selectIngredients);
+  const ingredients = useSelector(selectIngredients);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;

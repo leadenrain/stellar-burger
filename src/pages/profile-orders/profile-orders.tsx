@@ -12,7 +12,7 @@ export const ProfileOrders: FC = () => {
     dispatch(getOrderList());
   }, [dispatch]);
 
-  const orders: TOrder[] = useSelector(selectOrderList);
+  const orders = useSelector(selectOrderList);
 
   return <ProfileOrdersUI orders={orders} />;
 };
