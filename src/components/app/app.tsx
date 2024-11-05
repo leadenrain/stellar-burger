@@ -15,11 +15,10 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
-import { fetchIngredients } from '../../services/slices/burger/ingredients/ingredientsSlice';
+import { fetchIngredients } from '../../services/slices/burger/ingredients/thunk';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getUser } from '../../services/slices/auth/thunk';
 import { Title } from '../title/title';
-import { ModalWithParams } from '../modal-with-params/modal-with-params';
 
 const App = () => {
   const navigate = useNavigate();
@@ -27,6 +26,7 @@ const App = () => {
   const location = useLocation();
 
   const background = location.state?.background;
+  const orderNumber = `#${String(location.state?.order).padStart(6, '0')}`;
 
   const handleClose = () => {
     navigate(-1); // нужно ли прерывать загрузку ордера на сервер?
@@ -132,17 +132,17 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <ModalWithParams onClose={handleClose}>
+              <Modal title={orderNumber} onClose={handleClose}>
                 <OrderInfo />
-              </ModalWithParams>
+              </Modal>
             }
           />
           <Route
             path='/profile/orders/:number'
             element={
-              <ModalWithParams onClose={handleClose}>
+              <Modal title={orderNumber} onClose={handleClose}>
                 <OrderInfo />
-              </ModalWithParams>
+              </Modal>
             }
           />
           <Route

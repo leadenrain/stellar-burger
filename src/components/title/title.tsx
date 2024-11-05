@@ -7,7 +7,8 @@ export const Title: FC<PropsWithChildren<{ content?: string }>> = ({
 }) => {
   const { number } = useParams<{ number?: string }>();
 
-  const displayContent = content || (number ? `#${number}` : '');
+  const displayContent =
+    content || (number ? `#${number.padStart(6, '0')}` : '');
 
   return (
     <div>
