@@ -13,12 +13,11 @@ import '../../index.css';
 import styles from './app.module.css';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { ProtectedRoute } from '../protected-route';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/burger/ingredients/thunk';
-import { ProtectedRoute } from '../protected-route/protected-route';
 import { getUser } from '../../services/slices/auth/thunk';
-import { Title } from '../title/title';
 
 const App = () => {
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ const App = () => {
   const orderNumber = `#${String(location.state?.order).padStart(6, '0')}`;
 
   const handleClose = () => {
-    navigate(-1); // нужно ли прерывать загрузку ордера на сервер?
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -45,14 +44,7 @@ const App = () => {
           <Route index element={<ConstructorPage />} />
           <Route path='feed'>
             <Route index element={<Feed />} />
-            <Route
-              path=':number'
-              element={
-                <Title>
-                  <OrderInfo />
-                </Title>
-              }
-            />
+            <Route path=':number' element={<OrderInfo />} />
           </Route>
           <Route
             path='login'
@@ -108,23 +100,14 @@ const App = () => {
                 path=':number'
                 element={
                   <ProtectedRoute onlyAuthorized>
-                    <Title>
-                      <OrderInfo />
-                    </Title>
+                    <OrderInfo />
                   </ProtectedRoute>
                 }
               />
             </Route>
           </Route>
         </Route>
-        <Route
-          path='/ingredients/:id'
-          element={
-            <Title content='Детали ингредиента'>
-              <IngredientDetails />
-            </Title>
-          }
-        />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
       {background && (
