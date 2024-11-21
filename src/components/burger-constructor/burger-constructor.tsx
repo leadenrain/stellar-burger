@@ -1,7 +1,6 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { selectIsAuthorized } from '../../services/slices/auth/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import {
@@ -9,9 +8,10 @@ import {
   getBun,
   getOtherIngredients
 } from '../../services/slices/burger/constructor/constructorSlice';
+import { selectIsAuthorized } from '../../services/slices/auth/userSlice';
 import {
   selectIsOrderLoading,
-  selectOrder,
+  selectNewOrder,
   clearOrder
 } from '../../services/slices/order/order/orderSlice';
 import { postOrder } from '../../services/slices/order/order/thunk';
@@ -21,13 +21,13 @@ export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
 
   const constructorItems = {
-    bun: useSelector(getBun) || null,
-    ingredients: useSelector(getOtherIngredients) || []
+    bun: useSelector(getBun),
+    ingredients: useSelector(getOtherIngredients)
   };
 
   const authorizedUser = useSelector(selectIsAuthorized);
   const orderRequest = useSelector(selectIsOrderLoading);
-  const orderModalData = useSelector(selectOrder);
+  const orderModalData = useSelector(selectNewOrder);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;

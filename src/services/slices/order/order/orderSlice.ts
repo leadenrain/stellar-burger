@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TOrderState } from '../../types';
 import { getOrder, getOrderList, postOrder } from './thunk';
 import { handlePending, handleReject } from './handlers';
+import { TOrderState } from '../../types';
 
 export const initialState: TOrderState = {
   orderList: [],
@@ -16,7 +16,7 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     clearOrder: (state) => {
-      state.selectedOrder = null;
+      state.newOrder = null;
     }
   },
   selectors: {

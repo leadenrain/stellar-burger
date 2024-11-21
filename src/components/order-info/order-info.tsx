@@ -1,15 +1,12 @@
 import { FC, useEffect, useMemo } from 'react';
-import { Preloader } from '../ui/preloader';
-import { OrderInfoUI } from '../ui/order-info';
+import { Preloader } from '@ui';
+import { OrderInfoUI } from '@ui';
 import { TIngredient } from '@utils-types';
-import { selectIngredients } from '../../services/slices/burger/ingredients/ingredientsSlice';
-import { useDispatch, useSelector } from '../../services/store';
-import {
-  selectOrder,
-  clearOrder
-} from '../../services/slices/order/order/orderSlice';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from '../../services/store';
+import { selectOrder } from '../../services/slices/order/order/orderSlice';
 import { getOrder } from '../../services/slices/order/order/thunk';
+import { selectIngredients } from '../../services/slices/burger/ingredients/ingredientsSlice';
 
 export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
@@ -63,13 +60,6 @@ export const OrderInfo: FC = () => {
       total
     };
   }, [orderData, ingredients]);
-
-  useEffect(
-    () => () => {
-      dispatch(clearOrder());
-    },
-    []
-  );
 
   if (!orderInfo) {
     return <Preloader />;
