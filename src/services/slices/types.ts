@@ -1,10 +1,10 @@
-import { TRegisterData } from '../../utils/burger-api';
+import { TRegisterData } from '@api';
 import {
   TConstructorIngredient,
   TIngredient,
   TOrder,
   TUser
-} from '../../utils/types';
+} from '@utils-types';
 import {
   getUser,
   loginUser,
@@ -32,8 +32,6 @@ export type TFeedState = {
   isFeedLoading: boolean;
   feedLoadingError: string | null;
 };
-
-export type TUserLogin = Omit<TRegisterData, 'name'>;
 
 export type TUserState = {
   userData: TUser | null | undefined;

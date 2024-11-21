@@ -1,4 +1,4 @@
-export type ProtectedRouteProps = {
-  children: React.ReactElement;
+interface ProtectedRouteProps {
+  children: React.ReactNode;
   onlyAuthorized?: boolean;
-};
+}

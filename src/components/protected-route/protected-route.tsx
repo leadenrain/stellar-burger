@@ -1,17 +1,17 @@
 import { Navigate, useLocation } from 'react-router-dom';
+import { FC } from 'react';
+import { Preloader } from '@ui';
+import { useSelector } from '../../services/store';
 import {
   selectIsAuthorized,
   selectIsLoading,
   selectUser
 } from '../../services/slices/auth/userSlice';
-import { Preloader } from '../ui/preloader/preloader';
-import { useSelector } from '../../services/store';
-import { ProtectedRouteProps } from './type';
 
-export const ProtectedRoute = ({
+export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   children,
   onlyAuthorized
-}: ProtectedRouteProps) => {
+}) => {
   const isAuthorized = useSelector(selectIsAuthorized);
   const isLoading = useSelector(selectIsLoading);
   const user = useSelector(selectUser);
@@ -29,7 +29,13 @@ export const ProtectedRoute = ({
 
   if (!onlyAuthorized && isAuthorized) {
     const from = location.state?.from || '/';
-    return <Navigate to={from} replace />;
+    return (
+      <Navigate
+        to={from}
+        // state={{ background: from?.state?.background }}
+        replace
+      />
+    );
   }
 
   return children;

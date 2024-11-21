@@ -1,14 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TUserLogin } from '../types';
+
+import { setCookie, deleteCookie } from '../../../utils/cookie';
 import {
   getUserApi,
   TRegisterData,
   registerUserApi,
   updateUserApi,
+  TLoginData,
   loginUserApi,
   logoutApi
 } from '../../../utils/burger-api';
-import { setCookie, deleteCookie } from '../../../utils/cookie';
 
 // как типизировать санку, чтобы в пейлоад можно было положить ошибку, осталось загадкой
 
@@ -58,7 +59,7 @@ export const updateUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'user/login',
-  async (userData: TUserLogin, { rejectWithValue }) => {
+  async (userData: TLoginData, { rejectWithValue }) => {
     try {
       const data = await loginUserApi(userData);
       setCookie('accessToken', data.accessToken);
