@@ -22,9 +22,7 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   }
 
   if (onlyAuthorized && !isAuthorized) {
-    return (
-      <Navigate to='/login' state={{ from: location.state?.from }} replace />
-    );
+    return <Navigate to='/login' state={{ from: location }} replace />;
   }
 
   if (!onlyAuthorized && isAuthorized) {
@@ -32,7 +30,7 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
     return (
       <Navigate
         to={from}
-        // state={{ background: from?.state?.background }}
+        state={{ background: from?.state?.background }}
         replace
       />
     );
