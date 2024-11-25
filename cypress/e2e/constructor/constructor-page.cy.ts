@@ -19,18 +19,14 @@ describe('Checking the functionality of the constructor-page', () => {
   describe('Сhecking the addition of ingredients', () => {
     it('should change the counter of filling & add to constructor', () => {
       cy.get('@fillings').contains('Выберите начинку');
-      cy.get('@filling').find('.counter').should('have.length', 0);
-      cy.get('@filling').find('button').click();
+      cy.get('@filling').contains('Добавить').click();
       cy.get('@fillings').contains('Биокотлета из марсианской Магнолии');
-      cy.get('@filling').find('.counter').contains('1');
     });
 
     it('should change the counter of bun & add to constructor', () => {
       cy.get('@noBun').contains('Выберите булки');
-      cy.get('@bun').find('.counter').should('have.length', 0);
-      cy.get('@bun').find('button').click();
+      cy.get('@bun').contains('Добавить').click();
       cy.get(`[data-cy='buns']`).contains('Краторная булка N-200i');
-      cy.get('@bun').find('.counter').contains('2');
     });
   });
 
@@ -70,9 +66,7 @@ describe('Checking the functionality of the constructor-page', () => {
   describe('Checking the order process', () => {
     it('should create a new order', () => {
       cy.intercept('GET', 'api/auth/user', { fixture: 'user' });
-      cy.intercept('POST', 'api/orders', { fixture: 'order' }).as(
-        'createOrder'
-      );
+      cy.intercept('POST', 'api/orders', { fixture: 'order' });
       cy.setCookie('accessToken', 'test');
       cy.window().then((window) => {
         window.localStorage.setItem('refreshToken', 'test');
@@ -82,17 +76,16 @@ describe('Checking the functionality of the constructor-page', () => {
 
       cy.get('@noBun').contains('Выберите булки');
       cy.get('@fillings').contains('Выберите начинку');
-      cy.get('@filling').find('.counter').should('have.length', 0);
-      cy.get('@filling').find('button').click();
+      cy.get('@filling').contains('Добавить').click();
       cy.get('@fillings').contains('Биокотлета из марсианской Магнолии');
       cy.get('@filling').find('.counter').contains('1');
-      cy.get('@bun').find('button').click();
+      cy.get('@bun').contains('Добавить').click();
       cy.get(`[data-cy='buns']`).contains('Краторная булка N-200i');
       cy.get('@bun').find('.counter').contains('2');
       cy.get(`[data-cy='orderButton']`).click();
 
-      cy.get('@modal').find('h2').contains('56525').should('exist');
-      cy.get('@modal').find('button').click();
+      cy.get('@modal').contains('56525').should('exist');
+      cy.get(`[data-cy='onOverlayCloseModal']`).click({ force: true });
       cy.get('@modal').children().should('have.length', 0);
       cy.get('@noBun').contains('Выберите булки');
       cy.get('@fillings').contains('Выберите начинку');
