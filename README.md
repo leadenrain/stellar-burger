@@ -44,4 +44,4 @@ Stellar Burger — *самая настоящая космическая бур�
 #### Страница личного кабинета:
 ![Profile](./screens/profile.png)
 
-## *Stack: TS, React, Redux, Jest, Cypress*
+### *Stack: TS, React, Redux, Jest, Cypress*
